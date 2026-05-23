@@ -1,10 +1,12 @@
 # 🐱 GitHub 全绿贡献图案库
 
-把 GitHub 主页贡献图填成绿色，并用更深的绿色画出可爱的像素图案。默认保留猫咪，也可以一键切换成爱心、蝴蝶、火箭、LOVE 和山川。
+把 GitHub 主页贡献图填成绿色，并用更深的绿色画出像素图案。默认是猫咪，也可以切换成爱心、蝴蝶、火箭、LOVE 和山川。
 
-脚本会根据运行当天动态计算日期：以今天为终点，自动覆盖 GitHub 贡献图最近 53 列。没有写死日期，也不需要手动改年份。
+脚本会根据运行当天动态计算日期：以今天为终点，自动覆盖 GitHub 贡献图最近 53 列。
 
-## 🐾 默认猫咪
+## 🌟 图案预览
+
+### 🐾 猫咪 `cat`
 
 ```text
 .............##..............##......................
@@ -16,14 +18,7 @@
 ...............##############..........#######.......
 ```
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\update-pattern.ps1 -Pattern cat
-git push --force-with-lease origin main
-```
-
-## 💚 更多图案
-
-### 💖 爱心
+### 💖 爱心 `heart`
 
 ```text
 ............######....######.........................
@@ -35,12 +30,7 @@ git push --force-with-lease origin main
 ...................##..................###..........
 ```
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\update-pattern.ps1 -Pattern heart
-git push --force-with-lease origin main
-```
-
-### 🦋 蝴蝶
+### 🦋 蝴蝶 `butterfly`
 
 ```text
 .........#####.............#####.....................
@@ -52,12 +42,7 @@ git push --force-with-lease origin main
 ............####.........####........................
 ```
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\update-pattern.ps1 -Pattern butterfly
-git push --force-with-lease origin main
-```
-
-### 🚀 火箭
+### 🚀 火箭 `rocket`
 
 ```text
 .........................###.........................
@@ -69,12 +54,7 @@ git push --force-with-lease origin main
 .................#####.........#####.................
 ```
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\update-pattern.ps1 -Pattern rocket
-git push --force-with-lease origin main
-```
-
-### 💌 LOVE
+### 💌 LOVE `love`
 
 ```text
 .....................................................
@@ -86,12 +66,7 @@ git push --force-with-lease origin main
 .....................................................
 ```
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\update-pattern.ps1 -Pattern love
-git push --force-with-lease origin main
-```
-
-### ⛰️ 山川
+### ⛰️ 山川 `mountain`
 
 ```text
 ............................................######...
@@ -103,43 +78,67 @@ git push --force-with-lease origin main
 .........###.......############..##########..........
 ```
 
+## 🚀 快速使用
+
+### 方式一：Fork 后使用
+
+1. 点击 GitHub 页面右上角的 `Fork`，把这个仓库复制到你的账号下。
+2. 克隆你自己的 Fork 仓库：
+
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\update-pattern.ps1 -Pattern mountain
-git push --force-with-lease origin main
+git clone https://github.com/你的用户名/github-emoji-art.git
+cd github-emoji-art
 ```
 
-## 🚀 一键更新当前图案
-
-在仓库目录运行：
+3. 选择一个图案并生成提交历史：
 
 ```powershell
-cd D:\Codex\github-emoji-art
 powershell -ExecutionPolicy Bypass -File .\update-pattern.ps1 -Pattern cat
+```
+
+4. 推送到你的 GitHub 仓库：
+
+```powershell
 git push --force-with-lease origin main
 ```
 
-把 `cat` 换成你想要的图案名：
+### 方式二：新建自己的仓库
+
+1. 在 GitHub 新建一个公开仓库，例如 `github-emoji-art`。
+2. 克隆或复制本项目文件后，设置你的远端地址：
+
+```powershell
+git remote remove origin
+git remote add origin https://github.com/你的用户名/github-emoji-art.git
+```
+
+3. 生成你想要的图案并推送：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\update-pattern.ps1 -Pattern butterfly
+git push -u origin main --force-with-lease
+```
+
+## 🎨 切换图案
+
+把命令里的 `cat` 换成任意图案名：
 
 ```text
 cat | heart | butterfly | rocket | love | mountain
 ```
 
-`update-pattern.ps1` 会重新生成整条贡献图提交历史，让图案始终对齐到今天所在的 GitHub 贡献图窗口。
-
-## 📦 首次推送
-
-如果远端还没有设置：
+示例：
 
 ```powershell
-git remote add origin https://github.com/MewzCC/github-emoji-art.git
-git push -u origin main
-```
-
-如果已经推送过旧版本，更新后使用：
-
-```powershell
+powershell -ExecutionPolicy Bypass -File .\update-pattern.ps1 -Pattern heart
 git push --force-with-lease origin main
 ```
+
+## 🧩 命令说明
+
+- `-Pattern cat`：选择要生成的图案
+- `git push --force-with-lease`：更新贡献图提交历史，比普通 `--force` 更稳
+- `origin main`：把结果推送到当前仓库的 `main` 分支
 
 ## ✅ 显示条件
 
@@ -148,22 +147,8 @@ git push --force-with-lease origin main
 - 提交需要在默认分支 `main` 上
 - GitHub 主页贡献图刷新可能会有延迟
 
-## 🛠️ 旧脚本
+## 💡 小提示
 
-```powershell
-.\update-cat-green.ps1
-```
-
-只生成默认猫咪图案。
-
-```powershell
-.\fill-all-green.ps1
-```
-
-把当前贡献图窗口的每一天都填成更深的绿色。
-
-```powershell
-.\make-emoji-art.ps1
-```
-
-生成旧版爱心和闪光图案。
+- 如果图案没有立刻出现，等 GitHub 刷新一会儿再看
+- 如果贡献没有被统计，先检查 `git config user.email` 是否是 GitHub 已验证邮箱
+- 如果你 fork 后想同步新版图案，可以从原仓库拉取最新代码后重新运行脚本
