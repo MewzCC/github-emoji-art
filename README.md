@@ -1,8 +1,9 @@
 # 🐱 GitHub 全绿贡献图案库
 
-把 GitHub 主页贡献图填成绿色，并用更深的绿色画出像素图案。默认是猫咪，也可以切换成爱心、蝴蝶、火箭、LOVE 和山川。
+把你的 GitHub 主页贡献图变成绿色像素画。  
+默认是猫咪，也可以切换成爱心、蝴蝶、火箭、LOVE 和山川。
 
-脚本会根据运行当天动态计算日期：以今天为终点，自动覆盖 GitHub 贡献图最近 53 列。
+> 适合新手：照着步骤复制命令即可。
 
 ## 🌟 图案预览
 
@@ -78,77 +79,171 @@
 .........###.......############..##########..........
 ```
 
-## 🚀 快速使用
+## ✅ 使用前准备
 
-### 方式一：Fork 后使用
+你需要先准备好这三样东西：
 
-1. 点击 GitHub 页面右上角的 `Fork`，把这个仓库复制到你的账号下。
-2. 克隆你自己的 Fork 仓库：
+1. 一个 GitHub 账号
+2. 电脑安装好 Git：[下载 Git](https://git-scm.com/downloads)
+3. 你的 GitHub 邮箱已经验证
+
+检查 Git 是否安装成功：
+
+```powershell
+git --version
+```
+
+能看到版本号就说明成功了。
+
+## 🚀 新手推荐：Fork 后使用
+
+### 第 1 步：Fork 这个仓库
+
+打开本仓库页面，点击右上角的 `Fork`。  
+Fork 完以后，你会得到一个属于你自己的仓库：
+
+```text
+https://github.com/你的用户名/github-emoji-art
+```
+
+### 第 2 步：复制你的仓库地址
+
+进入你 fork 后的仓库页面，点击绿色的 `Code` 按钮，复制 HTTPS 地址。  
+地址大概长这样：
+
+```text
+https://github.com/你的用户名/github-emoji-art.git
+```
+
+### 第 3 步：下载到电脑
+
+打开 PowerShell，运行下面的命令。  
+记得把 `你的用户名` 换成你自己的 GitHub 用户名。
 
 ```powershell
 git clone https://github.com/你的用户名/github-emoji-art.git
 cd github-emoji-art
 ```
 
-3. 选择一个图案并生成提交历史：
+### 第 4 步：设置你的 Git 邮箱
+
+这个邮箱必须是你 GitHub 账号里已经验证过的邮箱。
+
+```powershell
+git config user.name "你的GitHub用户名"
+git config user.email "你的GitHub邮箱"
+```
+
+查看是否设置成功：
+
+```powershell
+git config user.name
+git config user.email
+```
+
+### 第 5 步：选择图案
+
+先生成默认猫咪：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\update-pattern.ps1 -Pattern cat
 ```
 
-4. 推送到你的 GitHub 仓库：
+也可以把 `cat` 换成其他图案：
+
+```text
+cat        猫咪
+heart      爱心
+butterfly  蝴蝶
+rocket     火箭
+love       LOVE
+mountain   山川
+```
+
+例如生成蝴蝶：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\update-pattern.ps1 -Pattern butterfly
+```
+
+### 第 6 步：推送到 GitHub
+
+运行：
 
 ```powershell
 git push --force-with-lease origin main
 ```
 
-### 方式二：新建自己的仓库
+推送成功后，打开你的 GitHub 主页，等待一会儿，贡献图就会刷新。
 
-1. 在 GitHub 新建一个公开仓库，例如 `github-emoji-art`。
-2. 克隆或复制本项目文件后，设置你的远端地址：
+## 🎨 以后想换图案怎么办？
 
-```powershell
-git remote remove origin
-git remote add origin https://github.com/你的用户名/github-emoji-art.git
-```
-
-3. 生成你想要的图案并推送：
+进入项目目录：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\update-pattern.ps1 -Pattern butterfly
-git push -u origin main --force-with-lease
+cd github-emoji-art
 ```
 
-## 🎨 切换图案
-
-把命令里的 `cat` 换成任意图案名：
-
-```text
-cat | heart | butterfly | rocket | love | mountain
-```
-
-示例：
+重新运行一个图案命令：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\update-pattern.ps1 -Pattern heart
 git push --force-with-lease origin main
 ```
 
-## 🧩 命令说明
+把 `heart` 换成你想要的图案名即可。
 
-- `-Pattern cat`：选择要生成的图案
-- `git push --force-with-lease`：更新贡献图提交历史，比普通 `--force` 更稳
-- `origin main`：把结果推送到当前仓库的 `main` 分支
+## 🆕 不想 Fork，想新建仓库？
+
+也可以。流程是：
+
+1. 在 GitHub 新建一个公开仓库，例如 `github-emoji-art`
+2. 下载本项目代码到电脑
+3. 把远端地址换成你自己的仓库
+
+命令示例：
+
+```powershell
+git remote remove origin
+git remote add origin https://github.com/你的用户名/github-emoji-art.git
+powershell -ExecutionPolicy Bypass -File .\update-pattern.ps1 -Pattern cat
+git push -u origin main --force-with-lease
+```
+
+## ❓ 常见问题
+
+### 为什么我的主页没变化？
+
+GitHub 贡献图刷新可能有延迟，等几分钟再看。
+
+### 为什么提交了，但贡献不统计？
+
+通常是邮箱问题。运行：
+
+```powershell
+git config user.email
+```
+
+确认这个邮箱已经添加到 GitHub：  
+`GitHub Settings` → `Emails`
+
+### 仓库一定要公开吗？
+
+推荐公开仓库。  
+如果是私有仓库，需要在 GitHub 个人设置里开启私有贡献显示。
+
+### 为什么要用 `--force-with-lease`？
+
+因为脚本会重新生成贡献图提交历史。  
+`--force-with-lease` 是比较安全的强制推送方式，适合更新这种贡献图仓库。
+
+### 可以每天更新吗？
+
+可以。每天重新运行你喜欢的图案命令，再推送即可。
 
 ## ✅ 显示条件
 
-- 仓库需要是公开仓库，或者你已经在 GitHub 设置里开启私有贡献显示
-- Git 提交邮箱需要绑定到你的 GitHub 账号
-- 提交需要在默认分支 `main` 上
-- GitHub 主页贡献图刷新可能会有延迟
-
-## 💡 小提示
-
-- 如果图案没有立刻出现，等 GitHub 刷新一会儿再看
-- 如果贡献没有被统计，先检查 `git config user.email` 是否是 GitHub 已验证邮箱
-- 如果你 fork 后想同步新版图案，可以从原仓库拉取最新代码后重新运行脚本
+- 仓库是公开仓库，或开启了私有贡献显示
+- Git 邮箱已经绑定到 GitHub 账号
+- 提交在 `main` 分支
+- GitHub 主页等待刷新
